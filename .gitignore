@@ -1,0 +1,8 @@
+.DS_Store
+.idea/
+.vscode/
+
+# Build outputs (project lives in web/)
+web/.next/
+web/out/
+web/node_modules/
