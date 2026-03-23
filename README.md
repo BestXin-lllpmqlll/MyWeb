@@ -25,3 +25,8 @@ npm run dev
 - Settings → Pages → Source 选择 GitHub Actions
 
 之后 push 到 `main/master` 会自动构建并发布。
+
+线上访问地址一般为：
+- https://bestxin-lllpmqlll.github.io/MyWeb/
+
+如果你访问的是 `https://bestxin-lllpmqlll.github.io/`（没有 `/MyWeb/`），通常会显示 404，这是正常的（因为这是“用户主页仓库”才会占用的地址）。
