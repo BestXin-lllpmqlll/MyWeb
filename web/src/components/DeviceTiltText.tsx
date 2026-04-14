@@ -56,10 +56,14 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
     const rotateY = clampedGamma * 0.6; 
     const rotateX = -clampedBeta * 0.6; 
 
+    // Limit rotation to max 7 degrees
+    const clampedRotateY = Math.max(-7, Math.min(7, rotateY));
+    const clampedRotateX = Math.max(-7, Math.min(7, rotateX));
+
     const x = clampedGamma * 2.0;
     const y = clampedBeta * 2.0;
 
-    targetTilt.current = { x, y, rotateX, rotateY };
+    targetTilt.current = { x, y, rotateX: clampedRotateX, rotateY: clampedRotateY };
   }, []);
 
   const handleMouseMove = useCallback((event: MouseEvent) => {
@@ -68,11 +72,17 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
     const x = (event.clientX / window.innerWidth) * 2 - 1;
     const y = (event.clientY / window.innerHeight) * 2 - 1;
     
+    // Also limit mouse rotation to max 7 degrees
+    const rotateY = x * 15;
+    const rotateX = -y * 15;
+    const clampedRotateY = Math.max(-7, Math.min(7, rotateY));
+    const clampedRotateX = Math.max(-7, Math.min(7, rotateX));
+
     targetTilt.current = { 
       x: x * 30, 
       y: y * 30,
-      rotateX: -y * 15,
-      rotateY: x * 15
+      rotateX: clampedRotateX,
+      rotateY: clampedRotateY
     };
   }, [isMobile]);
 
