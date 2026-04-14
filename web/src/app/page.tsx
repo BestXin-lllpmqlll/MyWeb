@@ -18,16 +18,8 @@ export default function Home() {
                 <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tighter text-white mix-blend-plus-lighter drop-shadow-md pointer-events-none">
                   XIN &amp; PAN
                 </h1>
-                <p className="max-w-[280px] sm:max-w-xl text-sm sm:text-lg md:text-2xl font-light tracking-wide text-zinc-300 uppercase pointer-events-none">
+                <p className="max-w-[280px] sm:max-w-xl text-sm sm:text-lg md:text-2xl font-light tracking-wide text-zinc-300 uppercase pointer-events-none mt-4">
                   Creative Portfolio
-                </p>
-              </div>
-              <div className="mt-12 sm:mt-16 flex flex-col items-center gap-4 animate-pulse pointer-events-none">
-                <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-white/50" />
-                </div>
-                <p className="text-xs sm:text-sm text-zinc-400 font-medium tracking-[0.2em] uppercase">
-                  长按屏幕任意位置进入
                 </p>
               </div>
             </main>
