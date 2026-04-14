@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node ./scripts/local-api.mjs & next dev --webpack",
+    "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "node ./scripts/serve-out.mjs",
     "lint": "eslint",
     "verify": "npm run lint && npm run build && node ./scripts/verify-build.mjs"
   },
   "dependencies": {
-    "lucide-react": "^1.7.0",
     "next": "16.2.1",
     "pdfjs-dist": "^5.5.207",
     "react": "19.2.4",
