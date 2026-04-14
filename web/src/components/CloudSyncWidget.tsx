@@ -177,15 +177,15 @@ const CloudSyncWidget: React.FC = () => {
       <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-[9999]">
       <button
         type="button"
-        className="w-14 h-14 bg-white rounded-full shadow-lg flex items-center justify-center text-blue-600 hover:bg-blue-50 hover:shadow-xl transition-all border border-blue-100 group relative"
+        className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-lg flex items-center justify-center text-blue-600 hover:bg-blue-50 hover:shadow-xl transition-all border border-blue-100 group relative"
         onClick={handlePull}
         disabled={pulling || pushing}
         title="刷新 (Git Pull)"
       >
         {pulling ? (
-          <Loader2 className="w-6 h-6 animate-spin" />
+          <Loader2 className="w-5 h-5 sm:w-6 sm:h-6 animate-spin" />
         ) : (
-          <CloudDownload className="w-6 h-6" />
+          <CloudDownload className="w-5 h-5 sm:w-6 sm:h-6" />
         )}
         <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-opacity">
           从云端下载
@@ -194,15 +194,15 @@ const CloudSyncWidget: React.FC = () => {
 
       <button
         type="button"
-        className="w-14 h-14 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 hover:shadow-xl transition-all border border-blue-700 group relative"
+        className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 hover:shadow-xl transition-all border border-blue-700 group relative"
         onClick={checkAndPush}
         disabled={pulling || pushing}
         title="上传 (Git Push)"
       >
         {pushing ? (
-          <Loader2 className="w-6 h-6 animate-spin" />
+          <Loader2 className="w-5 h-5 sm:w-6 sm:h-6 animate-spin" />
         ) : (
-          <CloudUpload className="w-6 h-6" />
+          <CloudUpload className="w-5 h-5 sm:w-6 sm:h-6" />
         )}
         <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-opacity">
           上传至云端
@@ -211,8 +211,8 @@ const CloudSyncWidget: React.FC = () => {
     </div>
 
     {showConfirmModal && (
-      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in">
-        <div className="bg-white rounded-2xl shadow-xl w-80 p-6 animate-in zoom-in-95">
+      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-in zoom-in-95">
           <h3 className="text-lg font-bold text-gray-900 mb-2">发现云端新版本</h3>
           <p className="text-gray-600 text-sm mb-6 leading-relaxed">
             检测到您的本地代码落后于云端。为了避免代码冲突，建议您先拉取最新代码再进行上传。
@@ -236,8 +236,8 @@ const CloudSyncWidget: React.FC = () => {
     )}
 
     {errorModal && (
-      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in">
-        <div className="bg-white rounded-2xl shadow-xl w-[360px] p-6 animate-in zoom-in-95">
+      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-in zoom-in-95">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
               <AlertCircle className="w-5 h-5 text-red-600" />

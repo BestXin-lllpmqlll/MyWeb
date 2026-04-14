@@ -97,7 +97,7 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
       {needsPermission && !permissionGranted && isMobile && (
         <button
           onClick={requestAccess}
-          className="absolute top-4 right-4 z-50 rounded-full border border-zinc-700 px-4 py-2 text-xs text-zinc-400 transition-colors hover:border-white hover:text-white"
+          className="absolute top-6 right-4 sm:top-8 sm:right-8 z-50 rounded-full border border-zinc-700 px-4 py-2 text-xs text-zinc-400 transition-colors hover:border-white hover:text-white"
         >
           开启陀螺仪动效
         </button>

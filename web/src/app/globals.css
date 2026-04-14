@@ -15,6 +15,20 @@
   
   /* 添加自定义动画 */
   --animate-blob: blob 10s infinite;
+  --animate-ripple: ripple 0.8s ease-out forwards;
+}
+
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+  }
+  100% {
+    width: 300vmax;
+    height: 300vmax;
+    opacity: 1;
+  }
 }
 
 @keyframes blob {
