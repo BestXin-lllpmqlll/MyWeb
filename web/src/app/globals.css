@@ -12,6 +12,7 @@
     "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
+  --font-polonium: var(--font-polonium);
   
   /* 添加自定义动画 */
   --animate-blob: blob 10s infinite;
@@ -53,20 +54,31 @@
   }
 }
 
-@keyframes pixel-move {
+@keyframes pixel-move-diagonal {
   0% {
     background-position: 0 0;
   }
   100% {
-    background-position: 16px 16px;
+    background-position: 0 60px;
   }
 }
 
-.animate-pixel-move {
-  animation: pixel-move 2s linear infinite;
+.animate-pixel-move-diagonal {
+  animation: pixel-move-diagonal 15s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
+  @keyframes shake-vibrate {
+    0%, 100% { transform: scale(0.98) translate(0, 0); }
+    25% { transform: scale(0.98) translate(-2px, 2px); }
+    50% { transform: scale(0.98) translate(2px, -2px); }
+    75% { transform: scale(0.98) translate(-2px, -2px); }
+  }
+
+  .animate-shake-vibrate {
+    animation: shake-vibrate 0.1s linear infinite;
+  }
+
+  @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;

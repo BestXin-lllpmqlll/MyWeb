@@ -111,10 +111,15 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
           window.addEventListener("deviceorientation", handleOrientation);
           setPermissionGranted(true);
           setNeedsPermission(false);
+        } else {
+          alert("需要允许陀螺仪权限才能体验动效哦");
         }
+      } else {
+        alert("当前环境不支持陀螺仪授权，请确保在 HTTPS 域名（如线上环境）下访问");
       }
     } catch (error) {
       console.error("Device orientation permission error:", error);
+      alert("陀螺仪授权失败，请确保使用 HTTPS 协议访问（如 GitHub Pages 线上地址）");
     }
   };
 
@@ -123,6 +128,7 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
       {needsPermission && !permissionGranted && isMobile && (
         <button
           onClick={requestAccess}
+          onPointerDown={(e) => e.stopPropagation()} // 防止触发全局长按
           className="absolute top-6 right-4 sm:top-8 sm:right-8 z-50 rounded-full border border-zinc-700 px-4 py-2 text-xs text-zinc-400 transition-colors hover:border-white hover:text-white"
         >
           开启陀螺仪动效

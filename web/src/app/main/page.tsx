@@ -22,7 +22,7 @@ export default function Main() {
   return (
     <div className="flex min-h-screen flex-col bg-white text-black p-8 sm:p-16 animate-in fade-in duration-1000">
       <header className="flex items-center justify-between mb-16">
-        <div className="text-xl font-bold tracking-tighter">XIN & PAN</div>
+        <div className="text-xl font-polonium font-bold tracking-tighter">XIN & PAN</div>
         <nav className="flex items-center gap-6 text-sm font-medium uppercase tracking-widest text-zinc-500">
           <Link href="/" className="hover:text-black transition-colors">Home</Link>
           <span className="text-black">Honors</span>
