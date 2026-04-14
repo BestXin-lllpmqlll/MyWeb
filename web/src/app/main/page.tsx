@@ -20,13 +20,13 @@ export default function Main() {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-black p-8 sm:p-16 animate-in fade-in duration-1000">
+    <div className="flex min-h-screen flex-col bg-black text-white p-8 sm:p-16 animate-in fade-in duration-1000">
       <header className="flex items-center justify-between mb-16">
         <div className="text-xl font-bold tracking-tighter">XIN & PAN</div>
-        <nav className="flex items-center gap-6 text-sm font-medium uppercase tracking-widest text-zinc-500">
-          <Link href="/" className="hover:text-black transition-colors">Home</Link>
-          <span className="text-black">Honors</span>
-          <Link href="/library" className="hover:text-black transition-colors">Library</Link>
+        <nav className="flex items-center gap-6 text-sm font-medium uppercase tracking-widest text-zinc-400">
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <span className="text-white">Honors</span>
+          <Link href="/library" className="hover:text-white transition-colors">Library</Link>
         </nav>
       </header>
 
@@ -35,7 +35,7 @@ export default function Main() {
           <h1 className="text-4xl sm:text-6xl font-light tracking-tight mb-6">
             Creative <span className="font-bold">Recognitions.</span>
           </h1>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             A curated collection of awards, honors, and academic milestones achieved in digital media arts, design, and innovation.
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function Main() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
           {/* Awards Section */}
           <div className="lg:col-span-8 flex flex-col gap-8">
-            <h2 className="text-2xl font-semibold border-b border-zinc-200 pb-4 tracking-tight">
+            <h2 className="text-2xl font-semibold border-b border-zinc-800 pb-4 tracking-tight">
               获 奖 经 历
             </h2>
             <div className="flex flex-col gap-6">
@@ -53,14 +53,14 @@ export default function Main() {
                   className="flex flex-col sm:flex-row sm:items-center justify-between group py-2"
                 >
                   <div className="flex items-center gap-6">
-                    <span className="text-zinc-400 font-mono text-sm shrink-0">
+                    <span className="text-zinc-500 font-mono text-sm shrink-0">
                       {item.year}
                     </span>
-                    <span className="text-lg font-medium text-zinc-900 group-hover:text-black transition-colors">
+                    <span className="text-lg font-medium text-zinc-300 group-hover:text-white transition-colors">
                       {item.title}
                     </span>
                   </div>
-                  <span className="text-sm font-medium px-4 py-1.5 bg-zinc-100 text-zinc-600 rounded-full mt-3 sm:mt-0 whitespace-nowrap self-start sm:self-auto">
+                  <span className="text-sm font-medium px-4 py-1.5 bg-zinc-900 text-zinc-300 rounded-full mt-3 sm:mt-0 whitespace-nowrap self-start sm:self-auto border border-zinc-800">
                     {item.award}
                   </span>
                 </div>
@@ -70,13 +70,13 @@ export default function Main() {
 
           {/* Academic Section */}
           <div className="lg:col-span-4 flex flex-col gap-8">
-            <h2 className="text-2xl font-semibold border-b border-zinc-200 pb-4 tracking-tight">
+            <h2 className="text-2xl font-semibold border-b border-zinc-800 pb-4 tracking-tight">
               学 术 成 果
             </h2>
             <div className="flex flex-col gap-10">
               {academic.map((item, i) => (
                 <div key={i} className="flex flex-col gap-3 group">
-                  <h3 className="text-lg font-medium text-zinc-900 leading-snug group-hover:text-black transition-colors">
+                  <h3 className="text-lg font-medium text-zinc-300 leading-snug group-hover:text-white transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-sm text-zinc-500 leading-relaxed">
