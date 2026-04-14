@@ -1,32 +1,68 @@
-# 辛宇 · 潘镜如个人网站
+<div align="center">
+  <h1 align="center">✨ Xin & Pan's Portfolio</h1>
+  <p align="center">
+    <strong>Where Creativity Meets Code.</strong>
+    <br />
+    <br />
+    <a href="https://bestxin-lllpmqlll.github.io/MyWeb/">View Live Demo</a>
+    ·
+    <a href="https://github.com/BestXin-lllpmqlll/MyWeb/issues">Report Bug</a>
+  </p>
+</div>
 
-本仓库用于部署到 GitHub Pages（静态托管）。
+<br />
 
-项目代码在 `web/` 目录：
-- 作品集数据：`web/src/data/portfolio.ts`
-- PDF 文件：`web/public/pdfs/`
-- 构建产物：`web/out/`（自动生成，不需要提交）
+## 💡 About The Project
 
-## 本地预览
+Welcome to the digital playground of **Xin Yu** and **Jingru Pan**. 
+This repository houses the source code for our personal portfolio website. It serves not just as a display of our commercial and internship projects, but as a dynamic canvas reflecting our creative journey, technical explorations, and design philosophy.
 
-```bash
-cd web
-npm ci
-npm run dev
-```
+> **Note:** The project is currently undergoing a complete architectural and visual redesign to push the boundaries of modern web experiences. Stay tuned.
 
-打开：http://localhost:3000
+## 🛠 Tech Stack
 
-## 部署到 GitHub Pages
+Built with modern web technologies to ensure a seamless, fast, and accessible experience:
 
-仓库已包含 GitHub Actions 工作流：`.github/workflows/deploy-pages.yml`
+* **Framework:** [Next.js](https://nextjs.org/) (App Router)
+* **UI & Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **Language:** [TypeScript](https://www.typescriptlang.org/)
+* **Deployment:** [GitHub Pages](https://pages.github.com/) (Static Export via GitHub Actions)
 
-在 GitHub 仓库设置：
-- Settings → Pages → Source 选择 GitHub Actions
+## 🚀 Quick Start
 
-之后 push 到 `main/master` 会自动构建并发布。
+To get a local copy up and running, follow these simple steps:
 
-线上访问地址一般为：
-- https://bestxin-lllpmqlll.github.io/MyWeb/
+### Prerequisites
 
-如果你访问的是 `https://bestxin-lllpmqlll.github.io/`（没有 `/MyWeb/`），通常会显示 404，这是正常的（因为这是“用户主页仓库”才会占用的地址）。
+Ensure you have Node.js (v18+) installed on your machine.
+
+### Installation
+
+1. Clone the repo:
+   ```sh
+   git clone https://github.com/BestXin-lllpmqlll/MyWeb.git
+   ```
+2. Navigate to the web directory:
+   ```sh
+   cd MyWeb/web
+   ```
+3. Install NPM packages:
+   ```sh
+   npm install
+   ```
+4. Start the development server:
+   ```sh
+   npm run dev
+   ```
+5. Open your browser and visit `http://localhost:3000`.
+
+## 📦 Deployment
+
+This project is fully configured for automated deployment to GitHub Pages.
+Any push to the `main` branch will trigger the GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) and publish the static site.
+
+Live URL: `https://bestxin-lllpmqlll.github.io/MyWeb/`
+
+## 📄 License
+
+Distributed under the MIT License. Copyright © Xin Yu & Jingru Pan.

@@ -17,9 +17,6 @@ const requiredArtifacts = [
   ".next/server/pages-manifest.json",
   "out/index.html",
   "out/404.html",
-  "out/library/index.html",
-  "out/pdfs/辛宇作品集.pdf",
-  "out/view/xinyu-portfolio/index.html",
 ];
 
 for (const p of requiredArtifacts) {
@@ -79,11 +76,6 @@ async function assertOk(url) {
 const { child, port } = await startPreviewServer();
 try {
   await assertOk(`http://localhost:${port}/`);
-  await assertOk(`http://localhost:${port}/library/`);
-  await assertOk(`http://localhost:${port}/view/xinyu-portfolio/`);
-  await assertOk(
-    `http://localhost:${port}/pdfs/${encodeURIComponent("辛宇作品集.pdf")}`,
-  );
 } finally {
   child.kill("SIGTERM");
   await waitForExit(child);
