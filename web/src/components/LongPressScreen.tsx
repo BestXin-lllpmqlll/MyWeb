@@ -137,12 +137,12 @@ export default function LongPressScreen({ href, children }: { href: string; chil
           aria-hidden="true"
         >
           <span
-            className="absolute animate-blur-ripple rounded-full bg-white/20 backdrop-blur-3xl"
+            className="absolute animate-blur-ripple-black rounded-full bg-black/20 backdrop-blur-3xl"
             style={{
               left: coords.x,
               top: coords.y,
               transform: "translate(-50%, -50%)",
-              boxShadow: "0 0 100px 100px rgba(255, 255, 255, 0.2)",
+              boxShadow: "0 0 100px 100px rgba(0, 0, 0, 0.3)",
             }}
           />
         </div>
