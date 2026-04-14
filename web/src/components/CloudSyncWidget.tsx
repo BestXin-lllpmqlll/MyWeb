@@ -27,7 +27,7 @@ const CloudSyncWidget: React.FC = () => {
     setTimeout(() => setMessage(null), 3000);
   };
 
-  const getChineseErrorMessage = (data: any) => {
+  const getChineseErrorMessage = (data: { error?: string; stderr?: string }) => {
     const errorText = ((data.error || '') + ' ' + (data.stderr || '')).toLowerCase();
     
     if (errorText.includes('conflict') || errorText.includes('unmerged files') || errorText.includes('needs merge')) {
