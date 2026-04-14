@@ -59,12 +59,12 @@
     background-position: 0 0;
   }
   100% {
-    background-position: 0 60px;
+    background-position: 0 120px;
   }
 }
 
 .animate-pixel-move-diagonal {
-  animation: pixel-move-diagonal 15s linear infinite;
+  animation: pixel-move-diagonal 20s linear infinite;
 }
 
   @keyframes shake-vibrate {

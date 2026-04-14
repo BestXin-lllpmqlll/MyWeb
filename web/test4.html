@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @keyframes pixel-move-diagonal {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 0 120px;
+    }
+  }
+
+  .animate-pixel-move-diagonal {
+    animation: pixel-move-diagonal 20s linear infinite;
+  }
+</style>
+</head>
+<body class="bg-black">
+  <div class="fixed inset-0 z-[-1] overflow-hidden bg-zinc-950">
+    <!-- 动态光晕球 -->
+    <div class="absolute top-0 -left-10 sm:-left-4 w-64 h-64 sm:w-96 sm:h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-[60px] sm:blur-[80px] opacity-60 animate-blob"></div>
+    
+    <!-- 背景柔光模糊层 -->
+    <div class="absolute inset-0 bg-zinc-950/40 backdrop-blur-[60px] sm:backdrop-blur-[100px] z-10"></div>
+
+    <!-- 45度像素方块遮罩层（边缘透明） -->
+    <div 
+      class="absolute inset-0 z-20 pointer-events-none"
+      style="
+        -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+        mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+      "
+    >
+      <!-- 斜着45度的像素阵列，高斯模糊，透明度10% -->
+      <div 
+        class="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] opacity-10 blur-[4px] animate-pixel-move-diagonal"
+        style="
+          transform: rotate(-45deg);
+          background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect x='0' y='0' width='20' height='20' fill='white'/%3E%3C/svg%3E&quot;);
+          background-size: 120px 120px;
+        "
+      ></div>
+    </div>
+  </div>
+</body>
+</html>

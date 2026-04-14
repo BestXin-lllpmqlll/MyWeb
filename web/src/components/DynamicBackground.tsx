@@ -19,11 +19,11 @@ export default function DynamicBackground() {
       >
         {/* 斜着45度的像素阵列，高斯模糊，透明度10% */}
         <div 
-          className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] opacity-10 blur-[2px] animate-pixel-move-diagonal"
+          className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] opacity-10 blur-[4px] animate-pixel-move-diagonal"
           style={{
             transform: 'rotate(-45deg)',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='0' y='0' width='4' height='4' fill='white'/%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect x='0' y='0' width='20' height='20' fill='white'/%3E%3C/svg%3E")`,
+            backgroundSize: '120px 120px'
           }}
         />
       </div>
