@@ -12,6 +12,7 @@ const CloudSyncWidget: React.FC = () => {
   const [message, setMessage] = useState<{text: string, type: 'success' | 'error' | 'info'} | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [errorModal, setErrorModal] = useState<{title: string, message: string} | null>(null);
+  const [successModal, setSuccessModal] = useState<{title: string, message: string, link?: string} | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -101,7 +102,11 @@ const CloudSyncWidget: React.FC = () => {
       const res = await fetchWithRetry('/api/git-push', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
-        showMessage('上传成功！', 'success');
+        setSuccessModal({
+          title: '代码上传成功',
+          message: '您的更改已成功推送到 GitHub。GitHub Actions 将自动重新构建网站。大约 1~2 分钟后，您的公网页面将更新至最新版本。',
+          link: 'https://bestxin-lllpmqlll.github.io/MyWeb/'
+        });
       } else {
         const errorText = ((data.error || '') + ' ' + (data.stderr || '')).toLowerCase();
         let errorMsg = '上传代码时发生未知错误。';
@@ -254,6 +259,41 @@ const CloudSyncWidget: React.FC = () => {
             >
               我知道了
             </button>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {successModal && (
+      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-in zoom-in-95">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+              <div className="w-3 h-3 rounded-full bg-green-600" />
+            </div>
+            <h3 className="text-lg font-bold text-gray-900">{successModal.title}</h3>
+          </div>
+          <p className="text-gray-600 text-sm mb-6 leading-relaxed whitespace-pre-wrap break-words">
+            {successModal.message}
+          </p>
+          <div className="flex flex-col sm:flex-row justify-end gap-3">
+            <button
+              onClick={() => setSuccessModal(null)}
+              className="px-5 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors w-full sm:w-auto text-center"
+            >
+              关闭
+            </button>
+            {successModal.link && (
+              <a
+                href={successModal.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setSuccessModal(null)}
+                className="px-5 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors w-full sm:w-auto text-center"
+              >
+                前往公网查看
+              </a>
+            )}
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    let animationFrameId: number = 0;
+    let animationFrameId: number;
 
     const updateTransform = () => {
       const lerpFactor = 0.1; // Adjust for smoothness vs responsiveness
@@ -86,7 +86,6 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
       } else {
         // Non-iOS 13+ devices
         window.addEventListener("deviceorientation", handleOrientation);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setPermissionGranted(true);
       }
     }
