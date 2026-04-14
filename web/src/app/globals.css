@@ -22,11 +22,14 @@
   0% {
     width: 0;
     height: 0;
-    opacity: 0.8;
+    opacity: 0.5;
+  }
+  10% {
+    opacity: 1;
   }
   100% {
-    width: 300vmax;
-    height: 300vmax;
+    width: 250vmax;
+    height: 250vmax;
     opacity: 1;
   }
 }

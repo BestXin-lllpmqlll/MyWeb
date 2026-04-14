@@ -1,17 +1,45 @@
 "use client";
 
-import { useEffect, useState, useCallback, ReactNode } from "react";
+import { useEffect, useState, useCallback, ReactNode, useRef } from "react";
 
 export default function DeviceTiltText({ children }: { children: ReactNode }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const targetTilt = useRef({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
+  const currentTilt = useRef({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
+
   const [needsPermission, setNeedsPermission] = useState(false);
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if touch device
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobile(typeof window !== "undefined" && "ontouchstart" in window);
+  }, []);
+
+  useEffect(() => {
+    let animationFrameId: number = 0;
+
+    const updateTransform = () => {
+      const lerpFactor = 0.1; // Adjust for smoothness vs responsiveness
+      
+      currentTilt.current.x += (targetTilt.current.x - currentTilt.current.x) * lerpFactor;
+      currentTilt.current.y += (targetTilt.current.y - currentTilt.current.y) * lerpFactor;
+      currentTilt.current.rotateX += (targetTilt.current.rotateX - currentTilt.current.rotateX) * lerpFactor;
+      currentTilt.current.rotateY += (targetTilt.current.rotateY - currentTilt.current.rotateY) * lerpFactor;
+
+      if (containerRef.current) {
+        const { x, y, rotateX, rotateY } = currentTilt.current;
+        containerRef.current.style.transform = `perspective(1000px) translate3d(${x}px, ${y}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
+
+      animationFrameId = requestAnimationFrame(updateTransform);
+    };
+
+    animationFrameId = requestAnimationFrame(updateTransform);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   const handleOrientation = useCallback((event: DeviceOrientationEvent) => {
@@ -24,29 +52,28 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
     const normalizedBeta = beta - 45;
     const clampedBeta = Math.max(-45, Math.min(45, normalizedBeta));
 
-    // For rotation, we can map gamma to rotateY and clampedBeta to rotateX
-    const rotateY = clampedGamma * 0.5; // Max 22.5 deg
-    const rotateX = -clampedBeta * 0.5; // Max 22.5 deg
+    // Increase multiplier for a more pronounced "晃动" (wobble/shake) effect
+    const rotateY = clampedGamma * 0.6; 
+    const rotateX = -clampedBeta * 0.6; 
 
-    const x = clampedGamma * 1.5;
-    const y = clampedBeta * 1.5;
+    const x = clampedGamma * 2.0;
+    const y = clampedBeta * 2.0;
 
-    setTilt({ x, y, rotateX, rotateY });
+    targetTilt.current = { x, y, rotateX, rotateY };
   }, []);
 
   const handleMouseMove = useCallback((event: MouseEvent) => {
     if (isMobile) return;
     
-    // Normalize mouse position to -1 to 1
     const x = (event.clientX / window.innerWidth) * 2 - 1;
     const y = (event.clientY / window.innerHeight) * 2 - 1;
     
-    setTilt({ 
-      x: x * 20, 
-      y: y * 20,
-      rotateX: -y * 10,
-      rotateY: x * 10
-    });
+    targetTilt.current = { 
+      x: x * 30, 
+      y: y * 30,
+      rotateX: -y * 15,
+      rotateY: x * 15
+    };
   }, [isMobile]);
 
   useEffect(() => {
@@ -104,9 +131,8 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
       )}
 
       <div
+        ref={containerRef}
         style={{
-          transform: `perspective(1000px) translate3d(${tilt.x}px, ${tilt.y}px, 0) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
-          transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           willChange: "transform",
         }}
       >
