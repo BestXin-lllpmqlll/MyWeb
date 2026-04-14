@@ -3,6 +3,7 @@
 import DeviceTiltText from "@/components/DeviceTiltText";
 import DynamicBackground from "@/components/DynamicBackground";
 import LongPressScreen from "@/components/LongPressScreen";
+import Typewriter from "@/components/Typewriter";
 
 export default function Home() {
   return (
@@ -13,12 +14,12 @@ export default function Home() {
             <DynamicBackground isPressing={isPressing} />
           </div>
           <DeviceTiltText>
-            <main className="flex flex-col items-center space-y-4 sm:space-y-6 text-center z-10 relative px-4">
-              <div className={`transition-transform duration-100 ${isPressing ? "animate-shake-vibrate" : "scale-100"}`}>
-                <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tighter text-white mix-blend-plus-lighter drop-shadow-md pointer-events-none">
-                  XIN &amp; PAN
+            <main className="flex flex-col items-center space-y-4 sm:space-y-6 text-center z-10 relative px-4 w-full">
+              <div className={`transition-transform duration-100 flex flex-col items-center justify-center ${isPressing ? "animate-shake-vibrate" : "scale-100"}`}>
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-[0.05em] sm:tracking-[0.1em] text-white mix-blend-plus-lighter drop-shadow-md pointer-events-none min-h-[1.2em] flex items-center justify-center w-full">
+                  <Typewriter words={["XIN & PAN", "XINYU & PANJINGRU"]} />
                 </h1>
-                <p className="max-w-[280px] sm:max-w-xl text-sm sm:text-lg md:text-2xl font-light tracking-wide text-zinc-300 uppercase pointer-events-none mt-4">
+                <p className="max-w-[280px] sm:max-w-xl text-sm sm:text-lg md:text-2xl font-light tracking-wide text-zinc-300 uppercase pointer-events-none mt-4 text-center">
                   Creative Portfolio
                 </p>
               </div>
