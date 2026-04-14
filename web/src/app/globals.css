@@ -53,6 +53,19 @@
   }
 }
 
+@keyframes pixel-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 16px 16px;
+  }
+}
+
+.animate-pixel-move {
+  animation: pixel-move 2s linear infinite;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
