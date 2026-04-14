@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const getNow = () => Date.now();
 
-export default function LongPressScreen({ href, children }: { href: string; children: React.ReactNode | ((isPressing: boolean) => React.ReactNode) }) {
+export default function LongPressScreen({ href, children }: { href: string; children: React.ReactNode | ((isPressing: boolean, isSuccess: boolean) => React.ReactNode) }) {
   const [isPressing, setIsPressing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [rippling, setRipple] = useState(false);
@@ -129,7 +129,7 @@ export default function LongPressScreen({ href, children }: { href: string; chil
       />
 
       {/* 实际页面内容 */}
-      {typeof children === 'function' ? children(isPressing) : children}
+      {typeof children === 'function' ? children(isPressing, rippling) : children}
 
       {rippling && (
         <div

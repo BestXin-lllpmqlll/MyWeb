@@ -56,12 +56,17 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
     const rotateY = clampedGamma * 0.6; 
     const rotateX = -clampedBeta * 0.6; 
 
-    // Limit rotation to max 7 degrees
-    const clampedRotateY = Math.max(-7, Math.min(7, rotateY));
-    const clampedRotateX = Math.max(-7, Math.min(7, rotateX));
+    // Limit rotation to max 15 degrees
+    const clampedRotateY = Math.max(-15, Math.min(15, rotateY));
+    const clampedRotateX = Math.max(-15, Math.min(15, rotateX));
 
-    const x = clampedGamma * 2.0;
-    const y = clampedBeta * 2.0;
+    // Limit translation to max 10% of screen width
+    const maxTranslation = typeof window !== "undefined" ? window.innerWidth * 0.1 : 30;
+    
+    // Map the max 45 degree angle to the max translation allowed
+    // gamma/beta are in [-45, 45], so dividing by 45 gives [-1, 1]
+    const x = (clampedGamma / 45) * maxTranslation;
+    const y = (clampedBeta / 45) * maxTranslation;
 
     targetTilt.current = { x, y, rotateX: clampedRotateX, rotateY: clampedRotateY };
   }, []);
@@ -72,15 +77,18 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
     const x = (event.clientX / window.innerWidth) * 2 - 1;
     const y = (event.clientY / window.innerHeight) * 2 - 1;
     
-    // Also limit mouse rotation to max 7 degrees
+    // Also limit mouse rotation to max 15 degrees
     const rotateY = x * 15;
     const rotateX = -y * 15;
-    const clampedRotateY = Math.max(-7, Math.min(7, rotateY));
-    const clampedRotateX = Math.max(-7, Math.min(7, rotateX));
+    const clampedRotateY = Math.max(-15, Math.min(15, rotateY));
+    const clampedRotateX = Math.max(-15, Math.min(15, rotateX));
+
+    // Limit translation to max 10% of screen width
+    const maxTranslation = typeof window !== "undefined" ? window.innerWidth * 0.1 : 30;
 
     targetTilt.current = { 
-      x: x * 30, 
-      y: y * 30,
+      x: x * maxTranslation, 
+      y: y * maxTranslation,
       rotateX: clampedRotateX,
       rotateY: clampedRotateY
     };
