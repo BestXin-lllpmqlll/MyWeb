@@ -3,7 +3,9 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LongPressScreen({ href, children }: { href: string; children: React.ReactNode }) {
+const getNow = () => Date.now();
+
+export default function LongPressScreen({ href, children }: { href: string; children: React.ReactNode | ((isPressing: boolean) => React.ReactNode) }) {
   const [isPressing, setIsPressing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [rippling, setRipple] = useState(false);
@@ -33,7 +35,7 @@ export default function LongPressScreen({ href, children }: { href: string; chil
   const updateProgress = () => {
     if (!startTimeRef.current) return;
     
-    const elapsed = Date.now() - startTimeRef.current;
+    const elapsed = getNow() - startTimeRef.current;
     const currentProgress = Math.min((elapsed / DURATION) * 100, 100);
     setProgress(currentProgress);
 
@@ -61,7 +63,7 @@ export default function LongPressScreen({ href, children }: { href: string; chil
     setIsPressing(true);
     setProgress(0);
     setCoords({ x: e.clientX, y: e.clientY }); // 保存点击位置
-    startTimeRef.current = Date.now();
+    startTimeRef.current = getNow();
     
     // 启动动画循环
     pressTimerRef.current = requestAnimationFrame(() => updateProgress());
@@ -108,9 +110,7 @@ export default function LongPressScreen({ href, children }: { href: string; chil
       onPointerLeave={stopPressing}
       onPointerCancel={stopPressing}
       onContextMenu={(e) => e.preventDefault()} // 防止长按出现右键菜单
-      className={`relative w-full min-h-[100dvh] overflow-hidden select-none touch-none transition-transform ${
-        isPressing ? "animate-shake-vibrate" : "scale-100"
-      }`}
+      className="relative w-full min-h-[100dvh] overflow-hidden select-none touch-none transition-transform scale-100"
       style={{ WebkitTouchCallout: "none" }}
     >
       {/* 底部进度条视觉反馈 */}
@@ -129,7 +129,7 @@ export default function LongPressScreen({ href, children }: { href: string; chil
       />
 
       {/* 实际页面内容 */}
-      {children}
+      {typeof children === 'function' ? children(isPressing) : children}
 
       {rippling && (
         <div

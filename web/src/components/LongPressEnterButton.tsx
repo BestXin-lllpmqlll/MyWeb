@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+const getNow = () => Date.now();
+
 export default function LongPressEnterButton({ href }: { href: string }) {
   const [isPressing, setIsPressing] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -34,7 +36,7 @@ export default function LongPressEnterButton({ href }: { href: string }) {
   const updateProgress = () => {
     if (!startTimeRef.current) return;
     
-    const elapsed = Date.now() - startTimeRef.current;
+    const elapsed = getNow() - startTimeRef.current;
     const currentProgress = Math.min((elapsed / DURATION) * 100, 100);
     setProgress(currentProgress);
 
@@ -55,7 +57,7 @@ export default function LongPressEnterButton({ href }: { href: string }) {
 
     setIsPressing(true);
     setProgress(0);
-    startTimeRef.current = Date.now();
+    startTimeRef.current = getNow();
     
     // 启动动画循环
     pressTimerRef.current = requestAnimationFrame(updateProgress);

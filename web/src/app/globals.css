@@ -12,7 +12,6 @@
     "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
-  --font-polonium: var(--font-polonium);
   
   /* 添加自定义动画 */
   --animate-blob: blob 10s infinite;
@@ -59,7 +58,7 @@
     background-position: 0 0;
   }
   100% {
-    background-position: 0 120px;
+    background-position: 0 80px;
   }
 }
 
