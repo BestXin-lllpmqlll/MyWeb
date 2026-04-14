@@ -48,7 +48,7 @@ export default function PdfScrollViewer(props: {
 
           const wrapper = document.createElement("div");
           wrapper.className =
-            "w-full overflow-hidden rounded-2xl border border-zinc-200 bg-white";
+            "w-full overflow-hidden rounded-2xl border border-white/10 bg-black";
 
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
@@ -85,22 +85,22 @@ export default function PdfScrollViewer(props: {
   }, [url]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-zinc-50">
-      <div className="shrink-0 border-b border-zinc-200 bg-white/90 backdrop-blur">
+    <div className="fixed inset-0 z-50 flex flex-col bg-black text-white">
+      <div className="shrink-0 border-b border-white/10 bg-black/80 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-          <div className="min-w-0 truncate text-sm font-medium text-zinc-900">
+          <div className="min-w-0 truncate text-sm font-medium text-white">
             {title}
           </div>
           <div className="flex shrink-0 items-center gap-2">
             <Link
               href="/library"
-              className="rounded-full border border-zinc-300 px-3 py-1 text-xs font-medium hover:bg-zinc-50"
+              className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium hover:bg-white/10 transition-colors"
             >
               返回作品集
             </Link>
             <Link
               href="/"
-              className="rounded-full border border-zinc-300 px-3 py-1 text-xs font-medium hover:bg-zinc-50"
+              className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium hover:bg-white/10 transition-colors"
             >
               返回主页
             </Link>
@@ -111,13 +111,13 @@ export default function PdfScrollViewer(props: {
       <div className="flex-1 overflow-y-auto">
         <div className="mx-auto max-w-5xl px-4 py-6">
           {status === "loading" ? (
-            <div className="text-sm text-zinc-600">加载中…</div>
+            <div className="text-sm text-zinc-400">加载中…</div>
           ) : null}
           {status === "error" ? (
-            <div className="text-sm text-red-600">
+            <div className="text-sm text-red-400">
               加载失败：请确认 PDF 文件存在且可访问（public/pdfs）。
               {errorMessage ? (
-                <div className="mt-2 break-all text-xs text-zinc-600">
+                <div className="mt-2 break-all text-xs text-zinc-400">
                   {errorMessage}
                 </div>
               ) : null}

@@ -10,7 +10,7 @@ export default function Home() {
       {(isPressing: boolean) => (
         <div className="flex min-h-[100dvh] flex-col items-center justify-center p-4 sm:p-8 overflow-hidden relative">
           <div className="fixed inset-0 z-[-1]">
-            <DynamicBackground />
+            <DynamicBackground isPressing={isPressing} />
           </div>
           <DeviceTiltText>
             <main className="flex flex-col items-center space-y-4 sm:space-y-6 text-center z-10 relative px-4">
