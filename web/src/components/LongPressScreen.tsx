@@ -60,57 +60,15 @@ export default function LongPressScreen({ href, children }: { href: string; chil
     e.preventDefault();
     if (rippling) return;
 
-    setIsPressing(true);
-    setProgress(0);
     setCoords({ x: e.clientX, y: e.clientY }); // 保存点击位置
-    startTimeRef.current = getNow();
-    
-    // 启动动画循环
-    pressTimerRef.current = requestAnimationFrame(() => updateProgress());
-
-    // 启动震动反馈 (每 150ms 震动一次)
-    if (typeof navigator !== "undefined" && navigator.vibrate) {
-      navigator.vibrate(30);
-      vibrateIntervalRef.current = setInterval(() => {
-        navigator.vibrate(30);
-      }, 150);
-    }
+    triggerSuccess(); // 点击直接触发成功
   };
-
-  const stopPressing = () => {
-    setIsPressing(false);
-    startTimeRef.current = 0;
-    
-    if (pressTimerRef.current) {
-      cancelAnimationFrame(pressTimerRef.current);
-      pressTimerRef.current = null;
-    }
-    
-    if (vibrateIntervalRef.current) {
-      clearInterval(vibrateIntervalRef.current);
-      vibrateIntervalRef.current = null;
-    }
-
-    // 重置进度
-    setProgress(0);
-  };
-
-  // 组件卸载时清理定时器
-  useEffect(() => {
-    return () => {
-      if (pressTimerRef.current) cancelAnimationFrame(pressTimerRef.current);
-      if (vibrateIntervalRef.current) clearInterval(vibrateIntervalRef.current);
-    };
-  }, []);
 
   return (
     <div
-      onPointerDown={startPressing}
-      onPointerUp={stopPressing}
-      onPointerLeave={stopPressing}
-      onPointerCancel={stopPressing}
-      onContextMenu={(e) => e.preventDefault()} // 防止长按出现右键菜单
-      className="relative w-full min-h-[100dvh] overflow-hidden select-none touch-none transition-transform scale-100"
+      onClick={(e) => startPressing(e as unknown as React.PointerEvent<HTMLDivElement>)}
+      onContextMenu={(e) => e.preventDefault()} // 防止右键菜单
+      className="relative w-full min-h-[100dvh] overflow-hidden select-none cursor-pointer transition-transform scale-100"
       style={{ WebkitTouchCallout: "none" }}
     >
       {/* 底部进度条视觉反馈 */}

@@ -1,4 +1,4 @@
-export default function DynamicBackground({ isPressing }: { isPressing?: boolean }) {
+export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }) {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden bg-zinc-950">
       {/* 背景柔光模糊层 */}
@@ -12,20 +12,27 @@ export default function DynamicBackground({ isPressing }: { isPressing?: boolean
           maskImage: 'radial-gradient(circle at center, black 20%, transparent 80%)'
         }}
       >
-        {/* 斜着45度的像素阵列，长按时加速到1.5倍 */}
-        <div 
-          className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] pointer-events-none mix-blend-screen transition-all duration-1000 ease-in-out"
-          style={{
-            opacity: 0.3,
-            filter: 'blur(2px)',
-            transform: 'rotate(-45deg)',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='30' height='30' fill='rgba(255,255,255,0.9)'/%3E%3C/svg%3E")`,
-            backgroundSize: '80px 80px',
-            animation: isPressing 
-              ? 'pixel-move-diagonal 13.3s linear infinite' // 基础速度 20s 的 1.5倍速度 (20 / 1.5 ≈ 13.3s)
-              : 'pixel-move-diagonal 20s linear infinite', // 平缓默认速度
+        {/* 下落动画包裹层（进入成功时触发自由落体） */}
+        <div
+          className="absolute inset-0 transition-transform duration-[1000ms]"
+          style={{ 
+            transform: isSuccess ? 'translateY(150vh)' : 'translateY(0)',
+            transitionTimingFunction: 'cubic-bezier(0.5, 0, 1, 1)' // 模拟重力加速 ease-in
           }}
-        />
+        >
+          {/* 斜着45度的像素阵列 */}
+          <div 
+            className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] pointer-events-none mix-blend-screen transition-all duration-1000 ease-in-out"
+            style={{
+              opacity: 0.3,
+              filter: 'blur(2px)',
+              transform: 'rotate(-45deg)',
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='30' height='30' fill='rgba(255,255,255,0.9)'/%3E%3C/svg%3E")`,
+              backgroundSize: '80px 80px',
+              animation: 'pixel-move-diagonal 20s linear infinite', // 平缓默认速度
+            }}
+          />
+        </div>
       </div>
     </div>
   );

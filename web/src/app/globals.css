@@ -16,27 +16,6 @@
   /* 添加自定义动画 */
   --animate-blob: blob 10s infinite;
   --animate-blur-ripple: blur-ripple 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-blur-ripple-black: blur-ripple-black 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes blur-ripple-black {
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 0;
-    backdrop-filter: blur(0px);
-  }
-  20% {
-    opacity: 1;
-    backdrop-filter: blur(12px);
-  }
-  100% {
-    width: 300vmax;
-    height: 300vmax;
-    opacity: 1;
-    backdrop-filter: blur(48px);
-    background-color: rgba(0, 0, 0, 1);
-  }
 }
 
 @keyframes blur-ripple {
