@@ -23,35 +23,48 @@ const playTypeSound = () => {
       audioCtx.resume();
     }
 
-    const osc = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
+    // 模拟青轴机械键盘的声音 (高频清脆的 click + 短促的 bottom-out clack)
     
-    // 生成老式打字机的清脆、带有一点低频共鸣的"咔哒"声
-    osc.type = "triangle";
-    osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.05);
-    
-    gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime); // 音量大一点
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05); // 稍微长一点点的衰减
-    
-    // 增加一点高频杂音，让声音显得更机械、生硬
+    // 1. 高频清脆的段落感点击声 (Click)
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = "square"; // 方波更有机械感
+    osc1.frequency.setValueAtTime(2500, audioCtx.currentTime);
+    osc1.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.015);
+    gain1.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.015);
+
+    // 2. 键帽触底的反馈声 (Clack)
     const osc2 = audioCtx.createOscillator();
-    const gainNode2 = audioCtx.createGain();
-    osc2.type = "square";
-    osc2.frequency.setValueAtTime(800, audioCtx.currentTime);
-    osc2.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.02);
-    gainNode2.gain.setValueAtTime(0.05, audioCtx.currentTime);
-    gainNode2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
-    
-    osc.connect(gainNode);
-    osc2.connect(gainNode2);
-    gainNode.connect(audioCtx.destination);
-    gainNode2.connect(audioCtx.destination);
-    
-    osc.start();
+    const gain2 = audioCtx.createGain();
+    osc2.type = "triangle"; // 三角波增加一点浑厚的底音
+    osc2.frequency.setValueAtTime(600, audioCtx.currentTime);
+    osc2.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.03);
+    gain2.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+
+    // 3. 加一点点高频的杂音让声音更脆
+    const osc3 = audioCtx.createOscillator();
+    const gain3 = audioCtx.createGain();
+    osc3.type = "sawtooth";
+    osc3.frequency.setValueAtTime(4000, audioCtx.currentTime);
+    osc3.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.01);
+    gain3.gain.setValueAtTime(0.03, audioCtx.currentTime);
+    gain3.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.01);
+
+    osc1.connect(gain1);
+    osc2.connect(gain2);
+    osc3.connect(gain3);
+    gain1.connect(audioCtx.destination);
+    gain2.connect(audioCtx.destination);
+    gain3.connect(audioCtx.destination);
+
+    osc1.start();
     osc2.start();
-    osc.stop(audioCtx.currentTime + 0.05);
-    osc2.stop(audioCtx.currentTime + 0.02);
+    osc3.start();
+    osc1.stop(audioCtx.currentTime + 0.015);
+    osc2.stop(audioCtx.currentTime + 0.03);
+    osc3.stop(audioCtx.currentTime + 0.01);
   } catch (e) {
     // 忽略由于未交互导致的浏览器拦截错误
   }
