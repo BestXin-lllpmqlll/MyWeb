@@ -32,6 +32,24 @@ export default function LongPressScreen({ href, children }: { href: string; chil
     }, 2500); // 增加时间，以完整展示缓慢漩涡动画
   };
 
+  const stopPressing = () => {
+    setIsPressing(false);
+    startTimeRef.current = 0;
+    
+    if (pressTimerRef.current) {
+      cancelAnimationFrame(pressTimerRef.current);
+      pressTimerRef.current = null;
+    }
+    
+    if (vibrateIntervalRef.current) {
+      clearInterval(vibrateIntervalRef.current);
+      vibrateIntervalRef.current = null;
+    }
+
+    // 重置进度
+    setProgress(0);
+  };
+
   const updateProgress = () => {
     if (!startTimeRef.current) return;
     

@@ -24,6 +24,21 @@
   100% { opacity: 1; }
 }
 
+@keyframes float-particle {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.15);
+  }
+  66% {
+    transform: translate(-30px, 40px) scale(0.85);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
 .animate-fade-in-black {
   animation: fade-in-black 2.5s ease-in forwards;
 }
