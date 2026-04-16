@@ -64,7 +64,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
   }, [isSuccess]);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-zinc-950 w-full h-full">
+    <div className="absolute z-0 overflow-hidden bg-zinc-950 w-[200vw] h-[200vh] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none">
       {/* 背景柔光模糊层 */}
       <div className="absolute inset-0 bg-zinc-950/40 backdrop-blur-[60px] sm:backdrop-blur-[100px] z-10" />
 

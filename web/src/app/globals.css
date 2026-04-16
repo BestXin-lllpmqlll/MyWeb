@@ -110,12 +110,8 @@
   perspective: 1000px;
 }
 
-@utility translate-z--100 {
-  transform: translateZ(-100px);
-}
-
-@utility translate-z-50 {
-  transform: translateZ(50px);
+@utility translate-z--500 {
+  transform: translateZ(-500px);
 }
 
 @media (prefers-color-scheme: dark) {

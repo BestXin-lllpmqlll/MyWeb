@@ -12,13 +12,13 @@ export default function Home() {
         <div className="flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden relative w-full perspective-1000">
           <DeviceTiltText>
             <div className="flex flex-col items-center justify-center w-full min-h-[100dvh] relative transform-style-3d">
-              {/* Background Layer (scaled up to prevent edge clipping when rotated) */}
-              <div className="absolute inset-[-10%] z-[-1] translate-z--100">
+              {/* Background Layer (scaled up significantly to prevent edge clipping when rotated) */}
+              <div className="absolute inset-0 z-[-1] translate-z--500 pointer-events-none flex items-center justify-center">
                 <DynamicBackground isSuccess={isSuccess} />
               </div>
               
               {/* Foreground Text Layer */}
-              <main className="flex flex-col items-center space-y-4 sm:space-y-6 text-center z-10 relative px-4 w-full translate-z-50">
+              <main className="flex flex-col items-center space-y-4 sm:space-y-6 text-center z-10 relative px-4 w-full">
                 <div className={`transition-transform duration-100 flex flex-col items-center justify-center ${isPressing ? "animate-shake-vibrate" : "scale-100"}`}>
                   <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-[0.05em] sm:tracking-[0.1em] text-white mix-blend-plus-lighter drop-shadow-md pointer-events-none min-h-[1.2em] flex items-center justify-center w-full">
                     <Typewriter words={[
