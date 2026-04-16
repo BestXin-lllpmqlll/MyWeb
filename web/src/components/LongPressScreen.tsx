@@ -51,9 +51,9 @@ export default function LongPressScreen({ href, children }: { href: string; chil
     // 防止右键触发
     if (e.button !== 0 && e.pointerType === "mouse") return;
     
-    // 如果点击的是链接或按钮，不拦截（虽然首页目前没有其它按钮，但为了扩展性）
+    // 如果点击的是链接或按钮，不拦截
     const target = e.target as HTMLElement;
-    if (target.closest("a") || target.closest("button")) {
+    if (target.closest("a") || target.closest("button") || target.closest(".no-long-press")) {
       return;
     }
     

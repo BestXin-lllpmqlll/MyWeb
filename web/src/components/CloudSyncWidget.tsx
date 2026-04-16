@@ -179,7 +179,10 @@ const CloudSyncWidget: React.FC = () => {
         </div>
       )}
       
-      <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-[9999]">
+    <div 
+      className="fixed bottom-6 right-6 flex flex-col gap-4 z-[9999] no-long-press"
+      onPointerDown={(e) => e.stopPropagation()} // 防止触发 LongPressScreen 的长按事件
+    >
       <button
         type="button"
         className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-lg flex items-center justify-center text-blue-600 hover:bg-blue-50 hover:shadow-xl transition-all border border-blue-100 group relative"
@@ -216,7 +219,7 @@ const CloudSyncWidget: React.FC = () => {
     </div>
 
     {showConfirmModal && (
-      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4">
+      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4 no-long-press">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-in zoom-in-95">
           <h3 className="text-lg font-bold text-gray-900 mb-2">发现云端新版本</h3>
           <p className="text-gray-600 text-sm mb-6 leading-relaxed">
@@ -241,7 +244,7 @@ const CloudSyncWidget: React.FC = () => {
     )}
 
     {errorModal && (
-      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4">
+      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4 no-long-press">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-in zoom-in-95">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
@@ -265,7 +268,7 @@ const CloudSyncWidget: React.FC = () => {
     )}
 
     {successModal && (
-      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4">
+      <div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4 no-long-press">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-in zoom-in-95">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
