@@ -18,7 +18,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
 
   useEffect(() => {
     // 客户端生成粒子，避免 SSR 不匹配
-    const generated = Array.from({ length: 600 }).map((_, i) => ({
+    const generated = Array.from({ length: 60 }).map((_, i) => ({
       id: i,
       left: Math.random() * 120 - 10, // -10% to 110%
       top: Math.random() * 120 - 10,
@@ -64,22 +64,24 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
             return (
               <div
                 key={p.id}
-                className="absolute transition-all ease-in"
+                className="absolute transition-all"
                 style={{
                   left: isSuccess ? '50%' : `${p.left}%`,
                   top: isSuccess ? '50%' : `${p.top}%`,
                   opacity,
                   filter: `blur(${blur}px)`,
                   transitionDuration: isSuccess ? '2500ms' : '0ms',
+                  transitionTimingFunction: 'ease-in-out',
                   transform: 'translate(-50%, -50%)',
                   zIndex: Math.round(10 / p.depth),
                 }}
               >
                 {/* 旋转容器 */}
                 <div
-                  className="transition-all ease-in"
+                  className="transition-all"
                   style={{
                     transitionDuration: isSuccess ? '2500ms' : '0ms',
+                    transitionTimingFunction: 'ease-in-out',
                     transform: isSuccess 
                       ? `rotate(${720 + p.rotationOffset}deg) scale(0)` 
                       : `rotate(${45 + p.rotationOffset}deg) scale(1)`,
@@ -91,7 +93,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
                     style={{
                       width: p.size,
                       height: p.size,
-                      animation: isSuccess ? 'none' : `float-particle ${p.duration}s ease-in-out ${p.delay}s infinite alternate`,
+                      animation: `float-particle ${p.duration}s ease-in-out ${p.delay}s infinite alternate`,
                     }}
                   />
                 </div>
