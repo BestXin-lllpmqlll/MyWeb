@@ -23,7 +23,7 @@ export default function DeviceTiltText({ children, background }: { children: Rea
 
     const updateTransform = () => {
       // Decrease lerp factor for a more delayed, "floating" response
-      const lerpFactor = 0.04; 
+      const lerpFactor = 0.015; 
       
       currentTilt.current.x += (targetTilt.current.x - currentTilt.current.x) * lerpFactor;
       currentTilt.current.y += (targetTilt.current.y - currentTilt.current.y) * lerpFactor;
