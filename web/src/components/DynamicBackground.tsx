@@ -8,8 +8,8 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
       <div 
         className="absolute inset-0 z-20 pointer-events-none mix-blend-screen"
         style={{
-          WebkitMaskImage: 'radial-gradient(circle at center, black 20%, transparent 80%)',
-          maskImage: 'radial-gradient(circle at center, black 20%, transparent 80%)'
+          WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)',
+          maskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)'
         }}
       >
         {/* 下落动画包裹层（进入成功时触发自由落体） */}
@@ -20,9 +20,9 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
             transitionTimingFunction: 'cubic-bezier(0.5, 0, 1, 1)' // 模拟重力加速 ease-in
           }}
         >
-          {/* 斜着45度的像素阵列 */}
+          {/* 斜着45度的像素阵列，极大扩展宽高以消除边界感 */}
           <div 
-            className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] pointer-events-none mix-blend-screen transition-all duration-1000 ease-in-out"
+            className="absolute top-[-100%] left-[-100%] w-[300%] h-[300%] pointer-events-none mix-blend-screen transition-all duration-1000 ease-in-out"
             style={{
               opacity: 0.3,
               filter: 'blur(2px)',

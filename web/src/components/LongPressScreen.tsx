@@ -91,19 +91,9 @@ export default function LongPressScreen({ href, children }: { href: string; chil
 
       {rippling && (
         <div
-          className="fixed inset-0 z-50 pointer-events-none overflow-hidden"
+          className="fixed inset-0 z-50 pointer-events-none bg-black animate-fade-in-black"
           aria-hidden="true"
-        >
-          <span
-            className="absolute animate-blur-ripple-black rounded-full bg-black/20 backdrop-blur-3xl"
-            style={{
-              left: coords.x,
-              top: coords.y,
-              transform: "translate(-50%, -50%)",
-              boxShadow: "0 0 100px 100px rgba(0, 0, 0, 0.3)",
-            }}
-          />
-        </div>
+        />
       )}
     </div>
   );
