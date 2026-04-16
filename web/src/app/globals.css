@@ -91,18 +91,34 @@
   animation: pixel-move-diagonal 20s linear infinite;
 }
 
-  @keyframes shake-vibrate {
-    0%, 100% { transform: scale(0.98) translate(0, 0); }
-    25% { transform: scale(0.98) translate(-2px, 2px); }
-    50% { transform: scale(0.98) translate(2px, -2px); }
-    75% { transform: scale(0.98) translate(-2px, -2px); }
-  }
+@keyframes shake-vibrate {
+  0%, 100% { transform: scale(0.98) translate(0, 0); }
+  25% { transform: scale(0.98) translate(-2px, 2px); }
+  50% { transform: scale(0.98) translate(2px, -2px); }
+  75% { transform: scale(0.98) translate(-2px, -2px); }
+}
 
-  .animate-shake-vibrate {
-    animation: shake-vibrate 0.1s linear infinite;
-  }
+.animate-shake-vibrate {
+  animation: shake-vibrate 0.1s linear infinite;
+}
 
-  @media (prefers-color-scheme: dark) {
+@utility transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
+@utility translate-z--100 {
+  transform: translateZ(-100px);
+}
+
+@utility translate-z-50 {
+  transform: translateZ(50px);
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;

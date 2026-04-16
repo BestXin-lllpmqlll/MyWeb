@@ -157,7 +157,9 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
         ref={containerRef}
         style={{
           willChange: "transform",
+          transformStyle: "preserve-3d",
         }}
+        className="w-full h-full"
       >
         {children}
       </div>
