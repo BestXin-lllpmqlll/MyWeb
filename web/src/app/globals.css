@@ -20,11 +20,12 @@
 
 @keyframes fade-in-black {
   0% { opacity: 0; }
+  40% { opacity: 0; } /* 延迟变黑，先欣赏漩涡聚集动画 */
   100% { opacity: 1; }
 }
 
 .animate-fade-in-black {
-  animation: fade-in-black 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fade-in-black 2.5s ease-in forwards;
 }
 
 @keyframes blur-ripple {

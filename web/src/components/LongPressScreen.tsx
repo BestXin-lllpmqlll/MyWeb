@@ -29,7 +29,7 @@ export default function LongPressScreen({ href, children }: { href: string; chil
 
     setTimeout(() => {
       router.push(href);
-    }, 1000);
+    }, 2500); // 增加时间，以完整展示缓慢漩涡动画
   };
 
   const updateProgress = () => {
