@@ -41,13 +41,24 @@ const server = createServer((req, res) => {
       }
     });
   } else if (path === '/api/git-push') {
-    exec('git add . && git commit -m "Auto commit from web UI" && git push', (error, stdout, stderr) => {
-      res.setHeader('Content-Type', 'application/json');
-      if (error && !(stdout || '').includes('nothing to commit') && !(stderr || '').includes('nothing to commit')) {
-        res.end(JSON.stringify({ success: false, error: error.message, stderr }));
-      } else {
-        res.end(JSON.stringify({ success: true, output: stdout }));
+    // 使用 execAsync 处理异步提交
+    exec('git add . && git commit -m "Auto commit from web UI"', (commitError, commitStdout, commitStderr) => {
+      // Ignore "nothing to commit" error
+      if (commitError && !(commitStdout || '').includes('nothing to commit') && !(commitStderr || '').includes('nothing to commit')) {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ success: false, error: commitError.message, stderr: commitStderr }));
+        return;
       }
+      
+      // Commit successful or nothing to commit, proceed to push
+      exec('git push', (pushError, pushStdout, pushStderr) => {
+        res.setHeader('Content-Type', 'application/json');
+        if (pushError) {
+          res.end(JSON.stringify({ success: false, error: pushError.message, stderr: pushStderr }));
+        } else {
+          res.end(JSON.stringify({ success: true, output: pushStdout }));
+        }
+      });
     });
   } else {
     res.writeHead(404);
