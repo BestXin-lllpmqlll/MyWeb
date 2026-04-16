@@ -10,13 +10,14 @@ export default function Home() {
     <LongPressScreen href="/main">
       {(isPressing: boolean, isSuccess: boolean) => (
         <div className="flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden relative w-full perspective-1000 bg-black">
-          <DeviceTiltText>
-            <div className="flex flex-col items-center justify-center w-full min-h-[100dvh] relative transform-style-3d">
-              {/* Background Layer (scaled up significantly to prevent edge clipping when rotated) */}
-              <div className="absolute inset-0 z-[-1] translate-z--500 pointer-events-none flex items-center justify-center scale-[1.5]">
+          <DeviceTiltText
+            background={
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center scale-[1.5]">
                 <DynamicBackground isSuccess={isSuccess} />
               </div>
-              
+            }
+          >
+            <div className="flex flex-col items-center justify-center w-full min-h-[100dvh] relative">
               {/* Foreground Text Layer */}
               <main className="flex flex-col items-center space-y-4 sm:space-y-6 text-center z-10 relative px-4 w-full">
                 <div className={`transition-transform duration-100 flex flex-col items-center justify-center ${isPressing ? "animate-shake-vibrate" : "scale-100"}`}>

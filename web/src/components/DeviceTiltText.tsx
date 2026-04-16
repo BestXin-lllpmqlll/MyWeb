@@ -2,8 +2,10 @@
 
 import { useEffect, useState, useCallback, ReactNode, useRef } from "react";
 
-export default function DeviceTiltText({ children }: { children: ReactNode }) {
+export default function DeviceTiltText({ children, background }: { children: ReactNode, background?: ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const foregroundRef = useRef<HTMLDivElement>(null);
   const targetTilt = useRef({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
   const currentTilt = useRef({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
 
@@ -27,9 +29,22 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
       currentTilt.current.rotateX += (targetTilt.current.rotateX - currentTilt.current.rotateX) * lerpFactor;
       currentTilt.current.rotateY += (targetTilt.current.rotateY - currentTilt.current.rotateY) * lerpFactor;
 
-      if (containerRef.current) {
+      // If we have separated background/foreground, container doesn't rotate
+      // Otherwise, container rotates (for backward compatibility)
+      if (containerRef.current && !background) {
         const { x, y, rotateX, rotateY } = currentTilt.current;
         containerRef.current.style.transform = `perspective(1000px) translate3d(${x}px, ${y}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
+
+      if (backgroundRef.current && background) {
+        const { x, y, rotateX, rotateY } = currentTilt.current;
+        // Background moves/rotates slower (e.g. 15% of foreground) to simulate extreme distance
+        backgroundRef.current.style.transform = `perspective(1000px) translate3d(${x * 0.15}px, ${y * 0.15}px, -500px) rotateX(${rotateX * 0.15}deg) rotateY(${rotateY * 0.15}deg)`;
+      }
+
+      if (foregroundRef.current && background) {
+        const { x, y, rotateX, rotateY } = currentTilt.current;
+        foregroundRef.current.style.transform = `perspective(1000px) translate3d(${x}px, ${y}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       }
 
       animationFrameId = requestAnimationFrame(updateTransform);
@@ -40,7 +55,7 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [background]);
 
   const handleOrientation = useCallback((event: DeviceOrientationEvent) => {
     const gamma = event.gamma || 0;
@@ -159,9 +174,30 @@ export default function DeviceTiltText({ children }: { children: ReactNode }) {
           willChange: "transform",
           transformStyle: "preserve-3d",
         }}
-        className="w-full h-full"
+        className="w-full h-full relative"
       >
-        {children}
+        {background && (
+          <div 
+            ref={backgroundRef}
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              willChange: "transform",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {background}
+          </div>
+        )}
+        <div
+          ref={foregroundRef}
+          className="w-full h-full"
+          style={{
+            willChange: "transform",
+            transformStyle: "preserve-3d",
+          }}
+        >
+          {children}
+        </div>
       </div>
     </>
   );
