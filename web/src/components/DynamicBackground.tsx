@@ -18,7 +18,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
 
   useEffect(() => {
     // 客户端生成粒子，避免 SSR 不匹配
-    const generated = Array.from({ length: 60 }).map((_, i) => ({
+    const generated = Array.from({ length: 600 }).map((_, i) => ({
       id: i,
       left: Math.random() * 120 - 10, // -10% to 110%
       top: Math.random() * 120 - 10,
@@ -33,10 +33,6 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden bg-zinc-950">
-      {/* 动态光晕球 */}
-      <div className="absolute top-0 -right-10 sm:-right-4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-[60px] sm:blur-[80px] opacity-60 animate-blob animation-delay-2000" />
-      <div className="absolute -bottom-20 sm:-bottom-8 left-10 sm:left-20 w-64 h-64 sm:w-96 sm:h-96 bg-pink-500 rounded-full mix-blend-screen filter blur-[60px] sm:blur-[80px] opacity-60 animate-blob animation-delay-4000" />
-
       {/* 背景柔光模糊层 */}
       <div className="absolute inset-0 bg-zinc-950/40 backdrop-blur-[60px] sm:backdrop-blur-[100px] z-10" />
 
