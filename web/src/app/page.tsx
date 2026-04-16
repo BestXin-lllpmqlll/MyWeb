@@ -9,11 +9,11 @@ export default function Home() {
   return (
     <LongPressScreen href="/main">
       {(isPressing: boolean, isSuccess: boolean) => (
-        <div className="flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden relative w-full perspective-1000">
+        <div className="flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden relative w-full perspective-1000 bg-black">
           <DeviceTiltText>
             <div className="flex flex-col items-center justify-center w-full min-h-[100dvh] relative transform-style-3d">
               {/* Background Layer (scaled up significantly to prevent edge clipping when rotated) */}
-              <div className="absolute inset-0 z-[-1] translate-z--500 pointer-events-none flex items-center justify-center">
+              <div className="absolute inset-0 z-[-1] translate-z--500 pointer-events-none flex items-center justify-center scale-[1.5]">
                 <DynamicBackground isSuccess={isSuccess} />
               </div>
               
