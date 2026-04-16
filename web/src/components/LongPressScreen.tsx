@@ -9,7 +9,6 @@ export default function LongPressScreen({ href, children }: { href: string; chil
   const [isPressing, setIsPressing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [rippling, setRipple] = useState(false);
-  const [coords, setCoords] = useState({ x: -1, y: -1 });
   const router = useRouter();
 
   const pressTimerRef = useRef<number | null>(null);
@@ -50,6 +49,7 @@ export default function LongPressScreen({ href, children }: { href: string; chil
     setProgress(0);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const updateProgress = () => {
     if (!startTimeRef.current) return;
     
@@ -78,7 +78,6 @@ export default function LongPressScreen({ href, children }: { href: string; chil
     e.preventDefault();
     if (rippling) return;
 
-    setCoords({ x: e.clientX, y: e.clientY }); // 保存点击位置
     triggerSuccess(); // 点击直接触发成功
   };
 
