@@ -59,7 +59,7 @@
     height: 300vmax;
     opacity: 1;
     backdrop-filter: blur(32px);
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, 1);
   }
 }
 
@@ -112,6 +112,28 @@
 
 @utility translate-z--500 {
   transform: translateZ(-500px);
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    margin-top: 150px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%) skewX(12deg);
+  }
+}
+
+@keyframes flash {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @media (prefers-color-scheme: dark) {

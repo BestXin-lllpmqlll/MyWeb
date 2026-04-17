@@ -7,7 +7,7 @@ import Typewriter from "@/components/Typewriter";
 
 export default function Home() {
   return (
-    <LongPressScreen href="/main">
+    <LongPressScreen href="/selection">
       {(isPressing: boolean, isSuccess: boolean) => (
         <div className="flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden relative w-full perspective-1000 bg-black">
           <DeviceTiltText
