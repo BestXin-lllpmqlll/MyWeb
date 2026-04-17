@@ -65,6 +65,16 @@ export default function SelectionPage() {
       </div>
 
       <div className="relative w-full max-w-4xl h-[500px] flex items-center justify-center mt-12">
+        {/* 碰撞的圆形和方形元素，仅在 selectedCard 被激活时渲染 */}
+        {selectedCard !== null && (
+          <div className="absolute inset-0 pointer-events-none z-[60] flex items-center justify-center">
+            {/* 圆形：从左上角飞入 */}
+            <div className="absolute w-32 h-32 rounded-full border-[6px] border-white shadow-[0_0_40px_rgba(255,255,255,0.8)] animate-[shape-collide-circle_1.2s_ease-out_forwards]"></div>
+            {/* 方形：从右下角飞入 */}
+            <div className="absolute w-24 h-24 border-[6px] border-white shadow-[0_0_40px_rgba(255,255,255,0.8)] animate-[shape-collide-square_1.2s_ease-out_forwards]"></div>
+          </div>
+        )}
+
         {cardsData.map((card, i) => {
           const isSelected = selectedCard === card.id;
           const isNotSelected = selectedCard !== null && !isSelected;
@@ -126,6 +136,11 @@ export default function SelectionPage() {
                 {/* Shine Effect on Hover (only for valid route) */}
                 {card.route && !isSelected && (
                   <div className={`absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none ${isHoveredInMobile ? "animate-[shimmer_1.5s_infinite]" : "md:group-hover:animate-[shimmer_1.5s_infinite]"}`}></div>
+                )}
+
+                {/* Flash Effect on Select */}
+                {isSelected && (
+                  <div className="absolute inset-0 bg-white animate-[flash_1.2s_ease-out_forwards] pointer-events-none"></div>
                 )}
               </div>
             </div>

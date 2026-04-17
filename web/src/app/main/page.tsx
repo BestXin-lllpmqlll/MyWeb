@@ -20,11 +20,8 @@ export default function Main() {
   ];
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-black text-white p-8 sm:p-16 font-sans">
-      {/* 入场黑幕渐淡动画：模拟从深色过渡出来的视觉缓冲 */}
-      <div className="pointer-events-none fixed inset-0 z-50 bg-black animate-[fade-out-black_1.5s_ease-out_forwards]"></div>
-      
-      <header className="flex items-center justify-between mb-16 relative z-10">
+    <div className="flex min-h-screen flex-col bg-black text-white p-8 sm:p-16 opacity-0 animate-float-up-fade-in">
+      <header className="flex items-center justify-between mb-16">
         <div className="text-xl font-bold tracking-tighter">XIN & PAN</div>
         <nav className="flex items-center gap-6 text-sm font-medium uppercase tracking-widest text-zinc-400">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
