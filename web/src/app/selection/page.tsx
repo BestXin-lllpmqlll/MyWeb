@@ -41,10 +41,20 @@ export default function SelectionPage() {
     }, 1200); // 1.2s delay for the card to shine and expand
   };
 
-  const cards = [
-    { id: 0, title: "LOCKED", desc: "Sealed Destiny", route: null, baseTransform: "rotate(-12deg) translateX(-140px) translateY(40px)" },
-    { id: 1, title: "PORTFOLIO", desc: "Enter The Realm", route: "/main", baseTransform: "rotate(0deg) translateX(0px) translateY(0px)" },
-    { id: 2, title: "MYSTERY", desc: "Unknown Path", route: null, baseTransform: "rotate(12deg) translateX(140px) translateY(40px)" },
+  const getBaseTransform = (id: number) => {
+    // 根据是否为移动端调整卡牌之间的间距，避免手机端横向溢出屏幕
+    // 原本 PC 端 offset 是 140，现在加大到 220 甚至 260
+    const offset = isMobile ? 140 : 260; 
+    if (id === 0) return `rotate(-12deg) translateX(-${offset}px) translateY(40px)`;
+    if (id === 1) return `rotate(0deg) translateX(0px) translateY(0px)`;
+    if (id === 2) return `rotate(12deg) translateX(${offset}px) translateY(40px)`;
+    return "";
+  };
+
+  const cardsData = [
+    { id: 0, title: "LOCKED", desc: "Sealed Destiny", route: null },
+    { id: 1, title: "PORTFOLIO", desc: "Enter The Realm", route: "/main" },
+    { id: 2, title: "MYSTERY", desc: "Unknown Path", route: null },
   ];
 
   return (
@@ -55,9 +65,10 @@ export default function SelectionPage() {
       </div>
 
       <div className="relative w-full max-w-4xl h-[500px] flex items-center justify-center mt-12">
-        {cards.map((card, i) => {
+        {cardsData.map((card, i) => {
           const isSelected = selectedCard === card.id;
           const isNotSelected = selectedCard !== null && !isSelected;
+          const baseTransform = getBaseTransform(card.id);
           
           // 在移动端，被 active 的卡片视为拥有 hover 效果
           const isHoveredInMobile = isMobile && activeCard === card.id;
@@ -71,7 +82,7 @@ export default function SelectionPage() {
                   ? "rotate(0deg) translateX(0px) translateY(-40px) scale(1.2)" 
                   : (isHoveredInMobile && card.route) // 移动端激活有效卡片时模拟 hover 状态的回正放大
                     ? "rotate(0deg) translateX(0px) translateY(-24px) scale(1.05)"
-                    : card.baseTransform,
+                    : baseTransform,
                 zIndex: isSelected || isHoveredInMobile ? 50 : undefined,
                 opacity: isNotSelected ? 0 : 1,
                 animation: mounted && selectedCard === null ? `card-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.15}s both` : "none",
