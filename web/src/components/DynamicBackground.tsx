@@ -12,6 +12,7 @@ interface Particle {
   delay: number;
   rotationOffset: number;
   isVortex: boolean;
+  shape: 'circle' | 'square';
 }
 
 export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }) {
@@ -29,6 +30,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
       delay: Math.random() * -30,
       rotationOffset: Math.random() * 90 - 45, // 随机初始旋转角度
       isVortex: false, // 标记为非漩涡新增粒子
+      shape: Math.random() > 0.5 ? 'circle' : 'square' as 'circle' | 'square', // 大约 50% 概率是圆形或方形
     }));
     
     // eslint-disable-next-line react-hooks/set-state-in-effect
