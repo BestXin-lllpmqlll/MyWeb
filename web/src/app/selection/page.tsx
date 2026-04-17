@@ -75,10 +75,10 @@ export default function SelectionPage() {
                 key={`circle-${i}`}
                 className="absolute rounded-full border-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"
                 style={{
-                  width: i === 0 ? '40px' : `${40 - i * 4}px`,
-                  height: i === 0 ? '40px' : `${40 - i * 4}px`,
-                  borderWidth: i === 0 ? '4px' : '2px',
-                  opacity: i === 0 ? 1 : 0.6 - i * 0.1,
+                  width: i === 0 ? '40px' : `${20 - i * 2}px`, // 拖尾宽度减半
+                  height: i === 0 ? '40px' : `${20 - i * 2}px`, // 拖尾高度减半
+                  borderWidth: i === 0 ? '4px' : '1px', // 拖尾边框变细
+                  opacity: i === 0 ? 1 : 0.4 - i * 0.05, // 拖尾初始透明度降低，衰减更平滑
                   animation: `fourier-circle 5s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.15}s both`,
               }}
             ></div>
@@ -89,10 +89,10 @@ export default function SelectionPage() {
               key={`square-${i}`}
               className="absolute border-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"
               style={{
-                width: i === 0 ? '32px' : `${32 - i * 3}px`,
-                height: i === 0 ? '32px' : `${32 - i * 3}px`,
-                borderWidth: i === 0 ? '4px' : '2px',
-                opacity: i === 0 ? 1 : 0.6 - i * 0.1,
+                width: i === 0 ? '32px' : `${16 - i * 1.5}px`, // 拖尾宽度减半
+                height: i === 0 ? '32px' : `${16 - i * 1.5}px`, // 拖尾高度减半
+                borderWidth: i === 0 ? '4px' : '1px', // 拖尾边框变细
+                opacity: i === 0 ? 1 : 0.4 - i * 0.05, // 拖尾初始透明度降低
                 animation: `fourier-square 5s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.15}s both`,
                 }}
               ></div>
