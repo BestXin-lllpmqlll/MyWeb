@@ -7,13 +7,33 @@ export default function SelectionPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  // 记录移动端当前激活（hover状态）的卡牌
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // 简单检测是否为移动端设备 (通过触摸屏或屏幕宽度)
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches || ("ontouchstart" in window));
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const handleSelect = (id: number, route: string | null) => {
+  const handleInteraction = (id: number, route: string | null) => {
     if (!route || selectedCard !== null) return;
+
+    if (isMobile) {
+      // 移动端逻辑：第一次点击激活 Hover 状态，第二次点击才选中
+      if (activeCard !== id) {
+        setActiveCard(id);
+        return; // 仅激活，不跳转
+      }
+    }
+
+    // PC端或移动端第二次点击：执行选中并跳转
     setSelectedCard(id);
     
     setTimeout(() => {
@@ -38,26 +58,39 @@ export default function SelectionPage() {
         {cards.map((card, i) => {
           const isSelected = selectedCard === card.id;
           const isNotSelected = selectedCard !== null && !isSelected;
+          
+          // 在移动端，被 active 的卡片视为拥有 hover 效果
+          const isHoveredInMobile = isMobile && activeCard === card.id;
 
           return (
             <div
               key={card.id}
-              className="absolute transition-all duration-700 ease-out"
+              className={`absolute transition-all duration-700 ease-out group/wrapper ${isSelected ? "" : "hover:z-50"} ${isHoveredInMobile ? "z-50" : ""}`}
               style={{
                 transform: isSelected 
                   ? "rotate(0deg) translateX(0px) translateY(-40px) scale(1.2)" 
-                  : card.baseTransform,
-                zIndex: isSelected ? 50 : 10,
+                  : (isHoveredInMobile && card.route) // 移动端激活有效卡片时模拟 hover 状态的回正放大
+                    ? "rotate(0deg) translateX(0px) translateY(-24px) scale(1.05)"
+                    : card.baseTransform,
+                zIndex: isSelected || isHoveredInMobile ? 50 : undefined,
                 opacity: isNotSelected ? 0 : 1,
                 animation: mounted && selectedCard === null ? `card-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.15}s both` : "none",
               }}
             >
               <div 
-                onClick={() => handleSelect(card.id, card.route)}
+                onClick={() => handleInteraction(card.id, card.route)}
                 className={`w-48 sm:w-64 h-72 sm:h-96 rounded-xl border flex flex-col items-center justify-center p-6 text-center transition-all duration-300 relative overflow-hidden group
                   ${isSelected 
                     ? "border-white shadow-[0_0_60px_rgba(255,255,255,0.4)] bg-zinc-900" 
-                    : `border-zinc-700 bg-zinc-900/90 ${card.route ? 'hover:border-zinc-300 hover:bg-zinc-800 hover:-translate-y-6 hover:rotate-0 hover:z-40 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer' : 'hover:border-red-900/50 hover:bg-black cursor-not-allowed opacity-80 hover:opacity-100 hover:-translate-y-2'}`
+                    : `border-zinc-700 bg-zinc-900 ${
+                        card.route 
+                          ? (isHoveredInMobile 
+                              ? 'border-zinc-300 bg-zinc-800 shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer' // 移动端模拟 hover
+                              : 'md:hover:border-zinc-300 md:hover:bg-zinc-800 md:hover:-translate-y-6 md:hover:rotate-0 md:hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer') 
+                          : (isHoveredInMobile
+                              ? 'border-red-900/50 bg-black cursor-not-allowed opacity-100 -translate-y-2'
+                              : 'md:hover:border-red-900/50 md:hover:bg-black cursor-not-allowed md:hover:opacity-100 md:hover:-translate-y-2')
+                      }`
                   }
                 `}
               >
@@ -66,22 +99,22 @@ export default function SelectionPage() {
                 
                 {/* Inner Frame */}
                 <div className={`absolute inset-3 border rounded-lg pointer-events-none transition-colors duration-500
-                  ${isSelected ? "border-white/40 animate-pulse" : "border-white/5 group-hover:border-white/20"}
+                  ${isSelected ? "border-white/40 animate-pulse" : `border-white/5 ${isHoveredInMobile ? "border-white/20" : "md:group-hover:border-white/20"}`}
                 `}></div>
                 
                 {/* Content */}
                 <div className={`transition-all duration-500 ${isSelected ? "scale-110" : "scale-100"}`}>
-                  <h2 className={`text-xl sm:text-2xl font-bold tracking-widest mb-3 transition-colors ${isSelected ? "text-white" : "text-zinc-300 group-hover:text-white"}`}>
+                  <h2 className={`text-xl sm:text-2xl font-bold tracking-widest mb-3 transition-colors ${isSelected ? "text-white" : `text-zinc-300 ${isHoveredInMobile ? "text-white" : "md:group-hover:text-white"}`}`}>
                     {card.title}
                   </h2>
-                  <p className={`text-[10px] sm:text-xs uppercase tracking-widest transition-colors ${isSelected ? "text-zinc-300" : "text-zinc-500 group-hover:text-zinc-400"}`}>
+                  <p className={`text-[10px] sm:text-xs uppercase tracking-widest transition-colors ${isSelected ? "text-zinc-300" : `text-zinc-500 ${isHoveredInMobile ? "text-zinc-400" : "md:group-hover:text-zinc-400"}`}`}>
                     {card.desc}
                   </p>
                 </div>
 
                 {/* Shine Effect on Hover (only for valid route) */}
                 {card.route && !isSelected && (
-                  <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none"></div>
+                  <div className={`absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none ${isHoveredInMobile ? "animate-[shimmer_1.5s_infinite]" : "md:group-hover:animate-[shimmer_1.5s_infinite]"}`}></div>
                 )}
 
                 {/* Flash Effect on Select */}
