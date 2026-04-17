@@ -57,6 +57,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
           delay: 0,
           rotationOffset: Math.random() * 180 - 90,
           isVortex: true, // 标记为漩涡新增粒子
+          shape: Math.random() > 0.5 ? 'circle' : 'square' as 'circle' | 'square', // 同样给漩涡粒子也分配形状
         };
       });
       
@@ -124,7 +125,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
                 >
                   {/* 上下浮动动画层 */}
                   <div
-                    className="bg-white shadow-[0_0_15px_rgba(255,255,255,0.6)]"
+                    className={`bg-white shadow-[0_0_15px_rgba(255,255,255,0.6)] ${p.shape === 'circle' ? 'rounded-full' : ''}`}
                     style={{
                       width: p.size,
                       height: p.size,

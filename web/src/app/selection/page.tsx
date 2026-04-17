@@ -12,6 +12,7 @@ export default function SelectionPage() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     // 简单检测是否为移动端设备 (通过触摸屏或屏幕宽度)
     const checkMobile = () => {
@@ -38,7 +39,7 @@ export default function SelectionPage() {
     
     setTimeout(() => {
       router.push(route);
-    }, 1200); // 1.2s delay for the card to shine and expand
+    }, 1500); // 1.5s delay to let the trails finish colliding
   };
 
   const getBaseTransform = (id: number) => {
@@ -68,10 +69,34 @@ export default function SelectionPage() {
         {/* 碰撞的圆形和方形元素，仅在 selectedCard 被激活时渲染 */}
         {selectedCard !== null && (
           <div className="absolute inset-0 pointer-events-none z-[60] flex items-center justify-center">
-            {/* 圆形：从左上角飞入 */}
-            <div className="absolute w-32 h-32 rounded-full border-[6px] border-white shadow-[0_0_40px_rgba(255,255,255,0.8)] animate-[shape-collide-circle_1.2s_ease-out_forwards]"></div>
-            {/* 方形：从右下角飞入 */}
-            <div className="absolute w-24 h-24 border-[6px] border-white shadow-[0_0_40px_rgba(255,255,255,0.8)] animate-[shape-collide-square_1.2s_ease-out_forwards]"></div>
+            {/* 带有托尾的圆形（傅立叶弧形轨迹） */}
+            {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={`circle-${i}`}
+                className="absolute rounded-full border-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+                style={{
+                  width: i === 0 ? '40px' : `${40 - i * 4}px`,
+                  height: i === 0 ? '40px' : `${40 - i * 4}px`,
+                  borderWidth: i === 0 ? '4px' : '2px',
+                  opacity: i === 0 ? 1 : 0.6 - i * 0.1,
+                  animation: `fourier-circle 1.2s cubic-bezier(0.25, 1, 0.5, 1) ${i * 0.03}s both`,
+                }}
+              ></div>
+            ))}
+            {/* 带有托尾的方形（傅立叶弧形轨迹） */}
+            {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={`square-${i}`}
+                className="absolute border-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+                style={{
+                  width: i === 0 ? '32px' : `${32 - i * 3}px`,
+                  height: i === 0 ? '32px' : `${32 - i * 3}px`,
+                  borderWidth: i === 0 ? '4px' : '2px',
+                  opacity: i === 0 ? 1 : 0.6 - i * 0.1,
+                  animation: `fourier-square 1.2s cubic-bezier(0.25, 1, 0.5, 1) ${i * 0.03}s both`,
+                }}
+              ></div>
+            ))}
           </div>
         )}
 
@@ -140,7 +165,7 @@ export default function SelectionPage() {
 
                 {/* Flash Effect on Select */}
                 {isSelected && (
-                  <div className="absolute inset-0 bg-white animate-[flash_1.2s_ease-out_forwards] pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-white animate-[flash_1.5s_ease-out_forwards] pointer-events-none"></div>
                 )}
               </div>
             </div>
