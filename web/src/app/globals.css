@@ -136,6 +136,11 @@
   100% { opacity: 0; }
 }
 
+@keyframes fade-out-black {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
