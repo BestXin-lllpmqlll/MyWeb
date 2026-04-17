@@ -79,12 +79,13 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
           maskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)'
         }}
       >
-        {/* 旋转波浪式聚集动画包裹层（进入成功时触发） */}
+        {/* 旋转波浪式聚集动画包裹层（进入成功时触发，整体漩涡旋转并放大，最后消失） */}
         <div
           className="absolute inset-0 transition-all duration-[2500ms]"
           style={{ 
             opacity: isSuccess ? 0 : 1,
-            transitionTimingFunction: 'ease-in'
+            transform: isSuccess ? 'rotate(180deg) scale(0.5)' : 'rotate(0deg) scale(1)',
+            transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
           }}
         >
           {/* 数字生命粒子阵列，散落且具有深度和上下浮动感 */}
@@ -93,7 +94,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
             // 漩涡新增的粒子透明度稍低
             const baseOpacity = p.isVortex ? Math.min(0.4, 0.8 / p.depth) : Math.min(0.6, 1.2 / p.depth);
             
-            // 点击进入时的最终状态：向中心聚拢，增加模糊和缩小
+            // 点击进入时的最终状态：所有粒子统一向同一个绝对中心（50%, 50%）聚拢
             const blur = isSuccess ? baseBlur + (p.isVortex ? 12 : 8) : baseBlur; // 漩涡粒子更模糊，模拟拉丝感
             const opacity = isSuccess ? 0 : baseOpacity;
 
@@ -102,12 +103,13 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
                 key={p.id}
                 className="absolute transition-all"
                 style={{
+                  // 强制所有粒子统一飞向正中心
                   left: isSuccess ? '50%' : `${p.left}%`,
                   top: isSuccess ? '50%' : `${p.top}%`,
                   opacity,
                   filter: `blur(${blur}px)`,
                   transitionDuration: isSuccess ? '2500ms' : '0ms',
-                  transitionTimingFunction: 'ease-in-out',
+                  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                   transform: 'translate(-50%, -50%)',
                   zIndex: Math.round(10 / p.depth),
                 }}
@@ -117,7 +119,7 @@ export default function DynamicBackground({ isSuccess }: { isSuccess?: boolean }
                   className="transition-all"
                   style={{
                     transitionDuration: isSuccess ? '2500ms' : '0ms',
-                    transitionTimingFunction: 'ease-in-out',
+                    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                     transform: isSuccess 
                       ? `rotate(${720 + p.rotationOffset}deg) scale(0)` 
                       : `rotate(${45 + p.rotationOffset}deg) scale(1)`,

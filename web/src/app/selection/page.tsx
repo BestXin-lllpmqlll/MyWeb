@@ -39,7 +39,7 @@ export default function SelectionPage() {
     
     setTimeout(() => {
       router.push(route);
-    }, 1500); // 1.5s delay to let the trails finish colliding
+    }, 5500); // 5.5s delay to let the slow trails finish colliding
   };
 
   const getBaseTransform = (id: number) => {
@@ -79,21 +79,21 @@ export default function SelectionPage() {
                   height: i === 0 ? '40px' : `${40 - i * 4}px`,
                   borderWidth: i === 0 ? '4px' : '2px',
                   opacity: i === 0 ? 1 : 0.6 - i * 0.1,
-                  animation: `fourier-circle 1.2s cubic-bezier(0.25, 1, 0.5, 1) ${i * 0.03}s both`,
-                }}
-              ></div>
-            ))}
-            {/* 带有托尾的方形（傅立叶弧形轨迹） */}
-            {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-              <div
-                key={`square-${i}`}
-                className="absolute border-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"
-                style={{
-                  width: i === 0 ? '32px' : `${32 - i * 3}px`,
-                  height: i === 0 ? '32px' : `${32 - i * 3}px`,
-                  borderWidth: i === 0 ? '4px' : '2px',
-                  opacity: i === 0 ? 1 : 0.6 - i * 0.1,
-                  animation: `fourier-square 1.2s cubic-bezier(0.25, 1, 0.5, 1) ${i * 0.03}s both`,
+                  animation: `fourier-circle 5s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.15}s both`,
+              }}
+            ></div>
+          ))}
+          {/* 带有托尾的方形（傅立叶弧形轨迹） */}
+          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+            <div
+              key={`square-${i}`}
+              className="absolute border-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+              style={{
+                width: i === 0 ? '32px' : `${32 - i * 3}px`,
+                height: i === 0 ? '32px' : `${32 - i * 3}px`,
+                borderWidth: i === 0 ? '4px' : '2px',
+                opacity: i === 0 ? 1 : 0.6 - i * 0.1,
+                animation: `fourier-square 5s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.15}s both`,
                 }}
               ></div>
             ))}
@@ -165,7 +165,7 @@ export default function SelectionPage() {
 
                 {/* Flash Effect on Select */}
                 {isSelected && (
-                  <div className="absolute inset-0 bg-white animate-[flash_1.5s_ease-out_forwards] pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-white animate-[flash_5s_ease-out_forwards] pointer-events-none"></div>
                 )}
               </div>
             </div>
