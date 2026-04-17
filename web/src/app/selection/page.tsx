@@ -127,11 +127,6 @@ export default function SelectionPage() {
                 {card.route && !isSelected && (
                   <div className={`absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none ${isHoveredInMobile ? "animate-[shimmer_1.5s_infinite]" : "md:group-hover:animate-[shimmer_1.5s_infinite]"}`}></div>
                 )}
-
-                {/* Flash Effect on Select */}
-                {isSelected && (
-                  <div className="absolute inset-0 bg-white animate-[flash_1.2s_ease-out_forwards] pointer-events-none"></div>
-                )}
               </div>
             </div>
           );
