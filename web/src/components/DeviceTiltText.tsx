@@ -39,8 +39,8 @@ export default function DeviceTiltText({ children, background }: { children: Rea
 
       if (backgroundRef.current && background) {
         const { x, y, rotateX, rotateY } = currentTilt.current;
-        // Background moves/rotates slower (e.g. 15% of foreground) to simulate extreme distance
-        backgroundRef.current.style.transform = `perspective(1000px) translate3d(${x * 0.15}px, ${y * 0.15}px, -500px) rotateX(${rotateX * 0.15}deg) rotateY(${rotateY * 0.15}deg)`;
+        // Background moves/rotates slower (e.g. 15% of foreground) and in the OPPOSITE direction
+        backgroundRef.current.style.transform = `perspective(1000px) translate3d(${-x * 0.15}px, ${-y * 0.15}px, -500px) rotateX(${-rotateX * 0.15}deg) rotateY(${-rotateY * 0.15}deg)`;
       }
 
       if (foregroundRef.current && background) {
